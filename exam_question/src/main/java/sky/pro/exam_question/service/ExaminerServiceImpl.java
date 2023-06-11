@@ -12,18 +12,18 @@ import java.util.Set;
 
 @Service
 @Component
-public class ExaminerService implements sky.pro.exam_question.localInterface.ExaminerService {
+public class ExaminerServiceImpl implements sky.pro.exam_question.localInterface.ExaminerService {
 
     private final QuestionService javaQuestionService;
 
-    public ExaminerService(JavaQuestionService javaQuestionService) {
+    public ExaminerServiceImpl(QuestionService javaQuestionService) {
         this.javaQuestionService = javaQuestionService;
     }
 
     @Override
     public Collection<Question> getQuestion(int amount) {
         int size = javaQuestionService.getAll().size();
-        if (size < amount) {
+        if (amount > size || amount <= 0) {
             throw new QuestionLimitException("Привышает лимит вопросов");
         }
         Set<Question> questionSet = new HashSet<>();

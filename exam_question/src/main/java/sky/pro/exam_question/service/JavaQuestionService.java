@@ -11,7 +11,7 @@ import java.util.*;
 public class JavaQuestionService implements QuestionService {
 
     private final Random random = new Random();
-    private final Set<Question> javaQuestion = new LinkedHashSet<>();
+    private final Set<Question> javaQuestion = new HashSet<>();
 
 
     @Override
@@ -44,6 +44,9 @@ public class JavaQuestionService implements QuestionService {
 
     @Override
     public Question getRandomQuestion() {
+        if(javaQuestion.isEmpty()){
+            throw new LayerInstantiationException();
+        }
         List<Question> list = new ArrayList<>(javaQuestion);
         int numb = random.nextInt(getAll().size());
         return list.get(numb);
